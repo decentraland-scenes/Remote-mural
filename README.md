@@ -64,3 +64,6 @@ Click on a color on the palette on the right. Once a color is selected, you can 
 
 Learn more about how to build your own scenes in our [documentation](https://docs.decentraland.org/) site.
 
+## Copyright info
+
+This scene is protected with a standard Apache 2 licence. See the terms and conditions in the [LICENSE](/LICENSE) file.

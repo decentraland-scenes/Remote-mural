@@ -3,16 +3,13 @@ import { Pixel, pixels, CheckServer, getFromServer, wallPixelTransparentMaterial
 import { refreshInterval, swatchColors, wallBlocksX, wallBlocksY, wallWidth, wallHeight, wallPixelZ, wallPixelScale, paletteColor, wallOffsetX, wallOffsetY, blankColor, apiUrl } from "./params";
 
 
-
+// initiate timer to update wall from server regularly
 let refreshTimer: number = refreshInterval
 
 // Add systems to engine
 engine.addSystem(new GrowSwatches())
 
 engine.addSystem(new CheckServer(refreshTimer))
-
-
-let activePixels = []
 
 
 ////// SCENERY
@@ -37,7 +34,7 @@ let transparentMaterial = new BasicMaterial()
 transparentMaterial.texture = "./textures/transparent-texture.png"
 
 
-
+// lay out all wall pixels
 function InitiateWall(){
 
   for (let xIndex = 0; xIndex < wallBlocksX; xIndex += 1) {
@@ -63,7 +60,9 @@ function InitiateWall(){
   }
 }
 
+InitiateWall()
 
+// lay out swatches in the palette
 function InitiatePalette(){
   let paletteContainer = new Entity()
   paletteContainer.add(new Transform({
@@ -113,11 +112,25 @@ function InitiatePalette(){
   }
 }
 
-
-InitiateWall()
-
 InitiatePalette()
 
+
+
+// when a swatch is clicked set color as active color
+function clickSwatch(colorOption: Entity){
+  // inactivate all options
+  for (let swatch of swatches.entities) {
+    swatch.get(Swatch).active = false
+  }
+  // activate clicked
+  colorOption.get(Swatch).active = true
+  // set painting color
+  currentColor = colorOption.get(Material)
+  log("clicked color in the palette")
+}
+
+
+// when a pixel is clicked, send data to server
 function clickPixel(pix: Entity){
   //pix.set(currentColor)
   log("setting color to pixel")
@@ -148,18 +161,6 @@ function clickPixel(pix: Entity){
     }
    })
    getFromServer()
-}
-
-function clickSwatch(colorOption: Entity){
-  // inactivate all options
-  for (let swatch of swatches.entities) {
-    swatch.get(Swatch).active = false
-  }
-  // activate clicked
-  colorOption.get(Swatch).active = true
-  // set painting color
-  currentColor = colorOption.get(Material)
-  log("clicked color in the palette")
 }
 
 
