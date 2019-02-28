@@ -31,8 +31,8 @@ export class GrowSwatches implements ISystem {
  
     update(dt: number) {
       for (let swatch of swatches.entities) {
-        let state = swatch.get(Swatch)
-        let transform = swatch.get(Transform)
+        let state = swatch.getComponent(Swatch)
+        let transform = swatch.getComponent(Transform)
         if (state.active && state.size < 1){
           state.size += dt * 2
           transform.scale = Vector3.Lerp(swatchScale, swatchSelectedScale, state.size)

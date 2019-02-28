@@ -12,7 +12,7 @@ engine.addSystem(new GrowSwatches())
 engine.addSystem(new CheckServer(refreshTimer))
 
 
-////// SCENERY
+////// ENVIRONMENT
 
 /*
 
@@ -43,15 +43,15 @@ function InitiateWall(){
       const yPos = (wallHeight / wallBlocksY) * yIndex + wallOffsetY;
       
       let pix = new Entity()
-      pix.add(new Transform({
+      pix.addComponent(new Transform({
         position: new Vector3(xPos, yPos, wallPixelZ),
         scale: wallPixelScale
       }))
-      pix.add(new Pixel(xIndex, yIndex))
+      pix.addComponent(new Pixel(xIndex, yIndex))
 
       pix.set(wallPixelTransparentMaterial)
-      pix.add(new PlaneShape())
-      pix.add(new OnClick(e=> {
+      pix.addComponent(new PlaneShape())
+      pix.addComponent(new OnPointerDown(e=> {
         clickPixel(pix)
       }))
 
@@ -65,7 +65,7 @@ InitiateWall()
 // lay out swatches in the palette
 function InitiatePalette(){
   let paletteContainer = new Entity()
-  paletteContainer.add(new Transform({
+  paletteContainer.addComponent(new Transform({
     position: new Vector3(8.5, 1, 3),
     rotation: Quaternion.Euler(30, 50, 0)
   }))
@@ -73,10 +73,10 @@ function InitiatePalette(){
 
   let palette = new Entity()
   palette.setParent(paletteContainer)
-  palette.add(new Transform({
+  palette.addComponent(new Transform({
     scale: new Vector3(2.2, 1, 1)
   }))
-  palette.add(new PlaneShape())
+  palette.addComponent(new PlaneShape())
   palette.set(wallPixelColorMaterial[paletteColor])
   engine.addEntity(palette)
   let rowY = 0
@@ -89,11 +89,11 @@ function InitiatePalette(){
 
     let colorOption = new Entity()
     colorOption.setParent(paletteContainer)
-    colorOption.add(new Transform({
+    colorOption.addComponent(new Transform({
       position: new Vector3(x, y, swatchZUnselected),
       scale: swatchScale
     }))
-    colorOption.add(new Swatch(x, y))
+    colorOption.addComponent(new Swatch(x, y))
     //log(wallPixelColorMaterial[i].albedoColor)
     if(i == 0){
       colorOption.set(transparentMaterial)
@@ -102,8 +102,8 @@ function InitiatePalette(){
       colorOption.set(wallPixelColorMaterial[col])
     }
     
-    colorOption.add(new PlaneShape())
-    colorOption.add(new OnClick(e=> {
+    colorOption.addComponent(new PlaneShape())
+    colorOption.addComponent(new OnPointerDown(e=> {
       clickSwatch(colorOption)
     }))
 
@@ -120,12 +120,12 @@ InitiatePalette()
 function clickSwatch(colorOption: Entity){
   // inactivate all options
   for (let swatch of swatches.entities) {
-    swatch.get(Swatch).active = false
+    swatch.getComponent(Swatch).active = false
   }
   // activate clicked
-  colorOption.get(Swatch).active = true
+  colorOption.getComponent(Swatch).active = true
   // set painting color
-  currentColor = colorOption.get(Material)
+  currentColor = colorOption.getComponent(Material)
   log("clicked color in the palette")
 }
 
@@ -135,8 +135,8 @@ function clickPixel(pix: Entity){
   //pix.set(currentColor)
   log("setting color to pixel")
 
-  let x = pix.get(Pixel).x
-  let y = pix.get(Pixel).y
+  let x = pix.getComponent(Pixel).x
+  let y = pix.getComponent(Pixel).y
   let color
   if (currentColor.albedoColor){
     color = currentColor.albedoColor.toHexString()
