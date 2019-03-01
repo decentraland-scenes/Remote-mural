@@ -30,7 +30,7 @@ let pixels: IPixel[] = []
 // get all pixels
 // GET /api/pixels/
 //
-pixelRouter.getComponent("/", function(req: express.Request, res: express.Response) {
+pixelRouter.get("/", function(req: express.Request, res: express.Response) {
   res.status(200).json(pixels);
 });
 
@@ -38,7 +38,7 @@ pixelRouter.getComponent("/", function(req: express.Request, res: express.Respon
 // get one pixel by {x,y}
 // GET /api/pixels/pixel/?x=0&y=0
 //
-pixelRouter.getComponent("/pixel", function(
+pixelRouter.get("/pixel", function(
   req: express.Request,
   res: express.Response
 ) {

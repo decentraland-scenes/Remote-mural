@@ -49,7 +49,7 @@ function InitiateWall(){
       }))
       pix.addComponent(new Pixel(xIndex, yIndex))
 
-      pix.set(wallPixelTransparentMaterial)
+      pix.addComponent(wallPixelTransparentMaterial)
       pix.addComponent(new PlaneShape())
       pix.addComponent(new OnPointerDown(e=> {
         clickPixel(pix)
@@ -77,7 +77,7 @@ function InitiatePalette(){
     scale: new Vector3(2.2, 1, 1)
   }))
   palette.addComponent(new PlaneShape())
-  palette.set(wallPixelColorMaterial[paletteColor])
+  palette.addComponent(wallPixelColorMaterial[paletteColor])
   engine.addEntity(palette)
   let rowY = 0
   for (let i = 0; i< swatchColors.length; i++){
@@ -96,10 +96,10 @@ function InitiatePalette(){
     colorOption.addComponent(new Swatch(x, y))
     //log(wallPixelColorMaterial[i].albedoColor)
     if(i == 0){
-      colorOption.set(transparentMaterial)
+      colorOption.addComponent(transparentMaterial)
     }else{
       let col = swatchColors[i]
-      colorOption.set(wallPixelColorMaterial[col])
+      colorOption.addComponent(wallPixelColorMaterial[col])
     }
     
     colorOption.addComponent(new PlaneShape())
