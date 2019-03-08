@@ -45,16 +45,14 @@ export function getFromServer() {
           if(pix && pix.color){
             if (wallPixelColorMaterial[pix.color]){
               let material = wallPixelColorMaterial[pix.color]
-              pixel.removeComponent(Material)
-              pixel.addComponent(material)
+              pixel.addComponentOrReplace(material)
              }
              else{
                log("pixel color" + pix.color + " not supported on " + x + " & " + y)
              }   
           }
           else {
-            pixel.removeComponent(Material)
-            pixel.addComponent(wallPixelTransparentMaterial)
+            pixel.addComponentOrReplace(wallPixelTransparentMaterial)
           }
         }
         log("got data from server")
