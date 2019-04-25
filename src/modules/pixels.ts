@@ -38,23 +38,21 @@ export function getFromServer() {
         let json = await response.json()
         //log(json)
         for (let pixel of pixels.entities){
-          let x = pixel.get(Pixel).x
-          let y = pixel.get(Pixel).y
+          let x = pixel.getComponent(Pixel).x
+          let y = pixel.getComponent(Pixel).y
           let pix = json.find((p)=> p.x === x && p.y === y )
   
           if(pix && pix.color){
             if (wallPixelColorMaterial[pix.color]){
               let material = wallPixelColorMaterial[pix.color]
-              pixel.remove(Material)
-              pixel.set(material)
+              pixel.addComponentOrReplace(material)
              }
              else{
                log("pixel color" + pix.color + " not supported on " + x + " & " + y)
              }   
           }
           else {
-            pixel.remove(Material)
-            pixel.set(wallPixelTransparentMaterial)
+            pixel.addComponentOrReplace(wallPixelTransparentMaterial)
           }
         }
         log("got data from server")
