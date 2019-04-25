@@ -30,8 +30,10 @@ An [x] icon shows on the palette. This is that texture material.
 
 */
 
+let transparentTexture = new Texture("./textures/transparent-texture.png")
+
 let transparentMaterial = new BasicMaterial()
-transparentMaterial.texture = "./textures/transparent-texture.png"
+transparentMaterial.texture = transparentTexture
 
 
 // lay out all wall pixels
@@ -67,7 +69,7 @@ function InitiatePalette(){
   let paletteContainer = new Entity()
   paletteContainer.addComponent(new Transform({
     position: new Vector3(8.5, 1, 3),
-    rotation: Quaternion.Euler(30, 50, 0)
+    rotation: Quaternion.Euler(0, 50, 0)
   }))
   engine.addEntity(paletteContainer)
 
