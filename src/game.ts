@@ -53,7 +53,7 @@ function InitiateWall(){
 
       pix.addComponent(wallPixelTransparentMaterial)
       pix.addComponent(new PlaneShape())
-      pix.addComponent(new OnPointerDown(e=> {
+      pix.addComponent(new OnClick(e=> {
         clickPixel(pix)
       }))
 
@@ -105,7 +105,7 @@ function InitiatePalette(){
     }
     
     colorOption.addComponent(new PlaneShape())
-    colorOption.addComponent(new OnPointerDown(e=> {
+    colorOption.addComponent(new OnClick(e=> {
       clickSwatch(colorOption)
     }))
 
