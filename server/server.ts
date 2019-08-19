@@ -1,5 +1,5 @@
-import * as express from "express";
-import * as cors from "cors";
+import express = require('express');
+import cors = require('cors');
 //import { Schema, Document } from "mongoose";
 import * as bodyParser from "body-parser";
 //import { Interface } from "readline";

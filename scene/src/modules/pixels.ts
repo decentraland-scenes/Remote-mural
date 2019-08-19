@@ -41,17 +41,18 @@ export function getFromServer() {
           let x = pixel.getComponent(Pixel).x
           let y = pixel.getComponent(Pixel).y
           let pix = json.find((p)=> p.x === x && p.y === y )
-  
           if(pix && pix.color){
             if (wallPixelColorMaterial[pix.color]){
-              let material = wallPixelColorMaterial[pix.color]
-              pixel.addComponentOrReplace(material)
+			  let newMaterial = wallPixelColorMaterial[pix.color]
+			  pixel.removeComponent(Material)
+              pixel.addComponentOrReplace(newMaterial)
              }
              else{
                log("pixel color" + pix.color + " not supported on " + x + " & " + y)
              }   
           }
           else {
+			pixel.removeComponent(Material)
             pixel.addComponentOrReplace(wallPixelTransparentMaterial)
           }
         }

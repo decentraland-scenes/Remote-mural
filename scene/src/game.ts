@@ -30,7 +30,7 @@ An [x] icon shows on the palette. This is that texture material.
 
 */
 
-let transparentTexture = new Texture("./textures/transparent-texture.png")
+let transparentTexture = new Texture("textures/transparent-texture.png")
 
 let transparentMaterial = new BasicMaterial()
 transparentMaterial.texture = transparentTexture
@@ -119,7 +119,7 @@ InitiatePalette()
 
 
 // when a swatch is clicked set color as active color
-function clickSwatch(colorOption: Entity){
+function clickSwatch(colorOption: IEntity){
   // inactivate all options
   for (let swatch of swatches.entities) {
     swatch.getComponent(Swatch).active = false
@@ -167,5 +167,5 @@ function clickPixel(pix: Entity){
 
 
 
-//getFromServer()
+getFromServer()
 
