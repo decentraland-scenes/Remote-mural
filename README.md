@@ -37,6 +37,9 @@ cd server
 # install node dependencies
 npm install
 
+# build the server
+npm run build
+
 # start the server
 npm start
 ```
