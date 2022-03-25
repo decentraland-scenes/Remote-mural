@@ -3,7 +3,7 @@ import {
   swatchScale,
   Swatch,
   swatches,
-  GrowSwatches
+  GrowSwatches,
 } from './modules/swatches'
 import {
   Pixel,
@@ -11,7 +11,7 @@ import {
   CheckServer,
   getFromServer,
   wallPixelTransparentMaterial,
-  wallPixelColorMaterial
+  wallPixelColorMaterial,
 } from './modules/pixels'
 import {
   refreshInterval,
@@ -26,7 +26,7 @@ import {
   wallOffsetX,
   wallOffsetY,
   blankColor,
-  apiUrl
+  apiUrl,
 } from './params'
 
 // initiate timer to update wall from server regularly
@@ -71,7 +71,7 @@ function InitiateWall() {
       pix.addComponent(
         new Transform({
           position: new Vector3(xPos, yPos, wallPixelZ),
-          scale: wallPixelScale
+          scale: wallPixelScale,
         })
       )
       pix.addComponent(new Pixel(xIndex, yIndex))
@@ -80,7 +80,7 @@ function InitiateWall() {
       pix.addComponent(new PlaneShape())
       pix.addComponent(
         new OnPointerDown(
-          e => {
+          (e) => {
             clickPixel(pix)
           },
           { button: ActionButton.POINTER, hoverText: 'Paint' }
@@ -100,7 +100,7 @@ function InitiatePalette() {
   paletteContainer.addComponent(
     new Transform({
       position: new Vector3(8.5, 1, 3),
-      rotation: Quaternion.Euler(0, 50, 0)
+      rotation: Quaternion.Euler(0, 50, 0),
     })
   )
   engine.addEntity(paletteContainer)
@@ -109,7 +109,7 @@ function InitiatePalette() {
   palette.setParent(paletteContainer)
   palette.addComponent(
     new Transform({
-      scale: new Vector3(2.2, 1, 1)
+      scale: new Vector3(2.2, 1, 1),
     })
   )
   palette.addComponent(new PlaneShape())
@@ -128,12 +128,12 @@ function InitiatePalette() {
     colorOption.addComponent(
       new Transform({
         position: new Vector3(x, y, swatchZUnselected),
-        scale: swatchScale
+        scale: swatchScale,
       })
     )
     colorOption.addComponent(new Swatch(x, y))
     //log(wallPixelColorMaterial[i].albedoColor)
-    if (i == 0) {
+    if (i === 0) {
       colorOption.addComponent(transparentMaterial)
     } else {
       let col = swatchColors[i]
@@ -143,7 +143,7 @@ function InitiatePalette() {
     colorOption.addComponent(new PlaneShape())
     colorOption.addComponent(
       new OnPointerDown(
-        e => {
+        (e) => {
           clickSwatch(colorOption)
         },
         { button: ActionButton.PRIMARY, hoverText: 'Pick Color' }
@@ -194,7 +194,7 @@ function clickPixel(pix: Entity) {
       let response = await fetch(url, {
         headers: headers,
         method: method,
-        body: body
+        body: body,
       })
     } catch {
       log('error sending pixel change')
