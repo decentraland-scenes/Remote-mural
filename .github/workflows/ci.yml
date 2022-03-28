@@ -24,7 +24,10 @@ jobs:
           pwd 
           npm i
       - name: lint
-        run: npm run lint
+        run: |
+          cd ./scene
+          pwd 
+          npm run lint
       - name: build
         run: |
           cd ./scene
