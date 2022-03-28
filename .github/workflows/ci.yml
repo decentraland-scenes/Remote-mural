@@ -14,7 +14,7 @@ jobs:
         with:
           node-version: 16.x
       - name: change folder
-        run: cd /scene
+        run: cd ./scene
       - name: install decentraland
         run: npm i -g decentraland@latest
       - name: install dependencies
