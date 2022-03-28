@@ -13,13 +13,20 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 16.x
-      - name: change folder
-        run: cd ./scene
       - name: install decentraland
-        run: npm i -g decentraland@latest
+        run: |
+          cd ./scene
+          pwd 
+          npm i -g decentraland@latest
       - name: install dependencies
-        run: npm i
+        run: |
+          cd ./scene
+          pwd 
+          npm i
       - name: lint
         run: npm run lint
       - name: build
-        run: npm run build
+        run: |
+          cd ./scene
+          pwd 
+          npm run build
