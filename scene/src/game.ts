@@ -30,7 +30,7 @@ import {
 } from './params'
 
 // initiate timer to update wall from server regularly
-let refreshTimer: number = refreshInterval
+const refreshTimer: number = refreshInterval
 
 // Add systems to engine
 engine.addSystem(new GrowSwatches())
@@ -55,9 +55,9 @@ An [x] icon shows on the palette. This is that texture material.
 
 */
 
-let transparentTexture = new Texture('textures/transparent-texture.png')
+const transparentTexture = new Texture('textures/transparent-texture.png')
 
-let transparentMaterial = new BasicMaterial()
+const transparentMaterial = new BasicMaterial()
 transparentMaterial.texture = transparentTexture
 
 // lay out all wall pixels
@@ -67,7 +67,7 @@ function InitiateWall() {
       const xPos = (wallWidth / wallBlocksX) * xIndex + wallOffsetX
       const yPos = (wallHeight / wallBlocksY) * yIndex + wallOffsetY
 
-      let pix = new Entity()
+      const pix = new Entity()
       pix.addComponent(
         new Transform({
           position: new Vector3(xPos, yPos, wallPixelZ),
@@ -96,7 +96,7 @@ InitiateWall()
 
 // lay out swatches in the palette
 function InitiatePalette() {
-  let paletteContainer = new Entity()
+  const paletteContainer = new Entity()
   paletteContainer.addComponent(
     new Transform({
       position: new Vector3(8.5, 1, 3),
@@ -105,7 +105,7 @@ function InitiatePalette() {
   )
   engine.addEntity(paletteContainer)
 
-  let palette = new Entity()
+  const palette = new Entity()
   palette.setParent(paletteContainer)
   palette.addComponent(
     new Transform({
@@ -123,7 +123,7 @@ function InitiatePalette() {
     }
     const y = rowY + 0.5
 
-    let colorOption = new Entity()
+    const colorOption = new Entity()
     colorOption.setParent(paletteContainer)
     colorOption.addComponent(
       new Transform({
@@ -136,7 +136,7 @@ function InitiatePalette() {
     if (i === 0) {
       colorOption.addComponent(transparentMaterial)
     } else {
-      let col = swatchColors[i]
+      const col = swatchColors[i]
       colorOption.addComponent(wallPixelColorMaterial[col])
     }
 
@@ -159,7 +159,7 @@ InitiatePalette()
 // when a swatch is clicked set color as active color
 function clickSwatch(colorOption: IEntity) {
   // inactivate all options
-  for (let swatch of swatches.entities) {
+  for (const swatch of swatches.entities) {
     swatch.getComponent(Swatch).active = false
   }
   // activate clicked
@@ -174,8 +174,8 @@ function clickPixel(pix: Entity) {
   //pix.set(currentColor)
   log('setting color to pixel')
 
-  let x = pix.getComponent(Pixel).x
-  let y = pix.getComponent(Pixel).y
+  const x = pix.getComponent(Pixel).x
+  const y = pix.getComponent(Pixel).y
   let color
   if (currentColor.albedoColor) {
     color = currentColor.albedoColor.toHexString()
@@ -184,14 +184,14 @@ function clickPixel(pix: Entity) {
     color = null
   }
 
-  let url = `${apiUrl}/api/pixels/pixel`
-  let method = 'POST'
-  let headers = { 'Content-Type': 'application/json' }
-  let body = JSON.stringify({ x: x, y: y, color: color })
+  const url = `${apiUrl}/api/pixels/pixel`
+  const method = 'POST'
+  const headers = { 'Content-Type': 'application/json' }
+  const body = JSON.stringify({ x: x, y: y, color: color })
 
   executeTask(async () => {
     try {
-      let response = await fetch(url, {
+      const response = await fetch(url, {
         headers: headers,
         method: method,
         body: body,
@@ -199,7 +199,7 @@ function clickPixel(pix: Entity) {
     } catch {
       log('error sending pixel change')
     }
-  })
+  }).catch((error) => log(error))
   getFromServer()
 }
 
